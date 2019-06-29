@@ -13,9 +13,9 @@ import pandas as pd
 
 
 
-folder_path = 'YOUR_DATASET_FOLDER/vlog_256/'
-output_path = 'YOUR_DATASET_FOLDER/vlog_frames_12fps/'
-file_src = 'YOUR_DATASET_FOLDER/manifest.txt'
+folder_path = '/root/dispnet/TimeCycle/DATA/vlog_256/'
+output_path = '/root/dispnet/TimeCycle/DATA/vlog_frames_12fps/'
+file_src = '/root/dispnet/TimeCycle/DATA/manifest.txt'
 
 
 file_list = []

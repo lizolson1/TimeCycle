@@ -11,9 +11,9 @@ from joblib import delayed
 from joblib import Parallel
 import pandas as pd
 
-file_src = 'YOUR_DATASET_FOLDER/manifest.txt'
-folder_path = 'YOUR_DATASET_FOLDER/vlog/'
-output_path = 'YOUR_DATASET_FOLDER/vlog_256/'
+file_src = '/home/drop/lizolson/TimeCycle/DATA/manifest.txt'
+folder_path = '/home/drop/lizolson/TimeCycle/DATA/vlog'
+output_path = '/home/drop/lizolson/TimeCycle/DATA/vlog_256'
 
 
 file_list = []
@@ -39,7 +39,7 @@ def download_clip(inname, outname):
                                          stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as err:
         return status, err.output
-
+    print(command)
     # Check if the video was successfully saved.
     status = os.path.exists(outname)
     return status, 'Downloaded'
@@ -54,8 +54,10 @@ def download_clip_wrapper(row):
     outname = output_path + '/' +videoname
 
     if os.path.isdir(outname) is False:
+        #print('not found', outname)
         try:
-            os.makedirs( outname, 0755 )
+            os.makedirs( outname, 0o755 )
+            #os.makedirs( outname)
         except:
             print(outname)
 
@@ -63,7 +65,9 @@ def download_clip_wrapper(row):
 
 
     downloaded, log = download_clip(inname, outname)
+    #print(downloaded)
     return downloaded
 
-
+#for row in file_list:
+#    print(row)
 status_lst = Parallel(n_jobs=15)(delayed(download_clip_wrapper)(row) for row in file_list)
